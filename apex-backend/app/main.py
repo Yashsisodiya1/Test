@@ -628,7 +628,7 @@ async def execute_code(req: CodeExecutionRequest, user: Optional[dict] = Depends
 async def get_submissions(problem_id: Optional[int] = None, user: dict = Depends(require_user)):
     """Get user's submission history."""
     with get_db() as conn:
-        if problem_id:
+        if problem_id is not None:
             rows = conn.execute(
                 "SELECT * FROM submissions WHERE user_id = ? AND problem_id = ? ORDER BY created_at DESC LIMIT 20",
                 (user["id"], problem_id),

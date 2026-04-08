@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { X, Eye, EyeOff, Loader2, Zap } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
@@ -18,6 +18,16 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'signin' }: A
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { signIn, signUp } = useAuth();
+
+  useEffect(() => {
+    setMode(initialMode);
+    setEmail('');
+    setPassword('');
+    setUsername('');
+    setDisplayName('');
+    setError('');
+    setShowPassword(false);
+  }, [initialMode, isOpen]);
 
   if (!isOpen) return null;
 
